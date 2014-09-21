@@ -1,4 +1,5 @@
 system.activate( "multitouch" )
+display.setStatusBar( display.HiddenStatusBar )
 
 local physics = require( "physics" )
 physics.setDrawMode("normal")
@@ -6,11 +7,6 @@ physics.setDrawMode("normal")
 local background = display.newImage( "images/clouds.png", true )
 background.x = display.contentCenterX
 background.y = display.contentCenterY
-
-
-display.setStatusBar( display.HiddenStatusBar )
-
-local ball = display.newImageRect( "images/balloon.png", 25, 25 )
 
 H = display.contentHeight
 W = display.contentWidth
@@ -24,7 +20,7 @@ local screenText = display.newText( "Carregando...", 0, 0, native.systemFont, 12
 screenText.x = W / 2
 screenText.y = H - 40
 
-currentTime = 20
+currentTime = 30
 local timeText = display.newText( "Time: "..currentTime, 0, 0, native.systemFont, 14 )
 timeText.x = 60
 timeText.y = 40
@@ -43,21 +39,23 @@ physics.setGravity( 0, -0.4 )
 local leftWall = display.newRect( 0, 0, 1, H * 2 )
 local rightWall = display.newRect( W, 0, 1, H * 2 )
 local ceiling = display.newRect( 0, 0, W * 2, 1 )
-totalTime = 20
+totalTime = 30
 
 physics.addBody( leftWall, "static", { bounce=0.1 } )
 physics.addBody( rightWall, "static", { bounce=0.1 } )
-physics.addBody( ceiling, "static", { bounce=0.1 } )
+physics.addBody( ceiling, "static", { bounce=0.4 } )
 
 countBalloons = 0
 timeLeft = false
 playerReady = true
 numBalloons = 100
+
 local function startGame()
 	local imgBalloon = display.newImageRect( "images/balloon.png", 25, 25 )
 	imgBalloon.x = math.random( 50, W - 50 )
 	imgBalloon.alpha = math.random( 1, 100 ) / 100
 	imgBalloon.y = (H + 10)
+
 	physics.addBody( imgBalloon, "dynamic", {density=0.1, friction=0, bounce=0.9, radius=12 } )
 	countBalloons = countBalloons + 1
 
